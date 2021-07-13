@@ -56,20 +56,6 @@ For filing bugs, suggesting improvements, or requesting new features, help us ou
 
 [Join us on Slack](https://apachebookkeeper.herokuapp.com/) - This is the most immediate way to connect with Apache BookKeeper committers and contributors.
 
-## Contributing
-
-We feel that a welcoming open community is important and welcome contributions.
-
-### Contributing Code
-
-1. See [Developer Setup](https://cwiki.apache.org/confluence/display/BOOKKEEPER/Developer+Setup) to get your local environment setup.
-
-2. Take a look at our open issues: [JIRA Issues](https://issues.apache.org/jira/browse/BOOKKEEPER) [Github Issues](https://github.com/apache/bookkeeper/issues).
-
-3. Review our [coding style](https://cwiki.apache.org/confluence/display/BOOKKEEPER/Coding+Guide) and follow our [pull requests](https://github.com/apache/bookkeeper/pulls) to learn about our conventions.
-
-4. Make your changes according to our [contribution guide](https://cwiki.apache.org/confluence/display/BOOKKEEPER/Contributing+to+BookKeeper).
-
 ### Improving Website and Documentation
 
 1. See [Building the website and documentation](https://cwiki.apache.org/confluence/display/BOOKKEEPER/Building+the+website+and+documentation) on how to build the website and documentation.
