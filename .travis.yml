@@ -1,0 +1,10 @@
+language: java
+jdk: 
+- openjdk11
+
+addons:
+ sonarcloud:
+  organization: 404notfoundpk
+  token: d6ca74226a11feedb6ceeb50540f792ae439cf13 
+script:
+- mvn verify -DfailIfNoTests=false sonar:sonar -Dsonar.projectKey=404NotFoundPK_ISW2-BOOKKEEPER 
