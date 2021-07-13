@@ -110,6 +110,9 @@
     <javac.target>1.8</javac.target>
     <redirectTestOutputToFile>true</redirectTestOutputToFile>
     <testRetryCount>2</testRetryCount>
+    <sonar.projectKey>404NotFoundPK_ISW2-BOOKKEEPER</sonar.projectKey>
+    <sonar.organization>404notfoundpk</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
