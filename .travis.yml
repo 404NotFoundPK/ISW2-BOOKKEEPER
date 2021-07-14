@@ -5,6 +5,7 @@ jdk:
 addons:
  sonarcloud:
   organization: 404notfoundpk
-  token: ae057812944d1f34d0c6a6c9a35c5d9670763a2d  
+  token: b48482c0cb46dee9f00a30133236a6512178c1a8
+  
 script:
-- mvn verify -DfailIfNoTests=false sonar:sonar -Dsonar.projectKey=404NotFoundPK_ISW2-BOOKKEEPER 
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=404NotFoundPK_ISW2-BOOKKEEPER
