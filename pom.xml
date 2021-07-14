@@ -118,7 +118,6 @@
 	<sonar.links.ci>https://travis-ci.org/404NotFoundPK/ISW2-bookkeeper</sonar.links.ci>
 	<sonar.links.scm>https://github.com/404NotFoundPK/ISW2-bookkeeper</sonar.links.scm>
 	<sonar.links.issue>https://github.com/404NotFoundPK/ISW2-bookkeeper/issues</sonar.links.issue>
-    <aggregate.report.dir>tests/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
 
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
@@ -856,15 +855,10 @@
             </execution>
           </executions>
         </plugin>
-		<plugin>
+	<plugin>
           <groupId>org.sonarsource.scanner.maven</groupId>
           <artifactId>sonar-maven-plugin</artifactId>
           <version>3.6.0.1398</version>
-        </plugin>
-		<plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.4</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -877,6 +871,42 @@
          <!-- <excludeFilterFile>${session.executionRootDirectory}/buildtools/src/main/resources/bookkeeper/findbugsExclude.xml</excludeFilterFile>-->
         </configuration>
       </plugin>
+	<plugin>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.4</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>prepare-agent</goal>CodeOps
+            </goals>
+        </execution>
+        <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+                <goal>report</goal>
+            </goals>
+        </execution>
+        <execution>
+            <id>jacoco-check</id>
+            <goals>
+                <goal>check</goal>
+            </goals>
+            <configuration>
+                <rules>
+                    <rule>
+                        <limits>
+                            <limit>
+                                <minimum>0.9</minimum>
+                            </limit>
+                        </limits>
+                    </rule>
+                </rules>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
@@ -1043,6 +1073,17 @@
     </plugins>
   </build>
   <profiles>
+  <profile>
+        <id>sonar</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <properties>
+          <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
+          <sonar.organization>404notfoundpk</sonar.organization>
+          <sonar.login>d6ca74226a11feedb6ceeb50540f792ae439cf13</sonar.login>
+        </properties>
+    </profile>
   <profile>
       <id>coverage</id>
       <activation>
