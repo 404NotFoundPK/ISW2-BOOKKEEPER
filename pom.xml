@@ -111,6 +111,13 @@
     <javac.target>1.8</javac.target>
     <redirectTestOutputToFile>true</redirectTestOutputToFile>
     <testRetryCount>2</testRetryCount>
+	
+	<sonar.projectKey>404notfoundpk:${project.groupId}:${project.artifactId}</sonar.projectKey>
+	<sonar.links.homepage>https://github.com/404NotFoundPK/ISW2-bookkeeper</sonar.links.homepage>
+	<sonar.links.ci>https://travis-ci.org/404NotFoundPK/ISW2-bookkeeper</sonar.links.ci>
+	<sonar.links.scm>https://github.com/404NotFoundPK/ISW2-bookkeeper</sonar.links.scm>
+	<sonar.links.issue>https://github.com/404NotFoundPK/ISW2-bookkeeper/issues</sonar.links.issue>
+    <aggregate.report.dir>tests/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
 
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
@@ -859,6 +866,16 @@
          <!-- <excludeFilterFile>${session.executionRootDirectory}/buildtools/src/main/resources/bookkeeper/findbugsExclude.xml</excludeFilterFile>-->
         </configuration>
       </plugin>
+	  <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>3.6.0.1398</version>
+        </plugin>
+		<plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.4</version>
+        </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
@@ -1025,6 +1042,28 @@
     </plugins>
   </build>
   <profiles>
+  <profile>
+      <id>coverage</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <!-- profile used by jenkins CI -->
       <id>code-coverage</id>
