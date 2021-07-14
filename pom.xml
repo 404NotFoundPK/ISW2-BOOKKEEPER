@@ -120,10 +120,10 @@
 	<sonar.java.source>11</sonar.java.source>
 	<sonar.java.file.suffixes>.java</sonar.java.file.suffixes>
 	<sonar.verbose>true</sonar.verbose>
-	<aggregate.report.dir>tests/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+	<aggregate.report.dir>jacoco-aggregate/jacoco.xml</aggregate.report.dir>
 
 	<!-- Jacoco report -->
-	<sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
+	<sonar.coverage.jacoco.xmlReportPaths>${basedir}/${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
 
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
