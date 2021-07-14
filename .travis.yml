@@ -5,6 +5,6 @@ jdk:
 addons:
  sonarcloud:
   organization: 404notfoundpk
-  token: d6ca74226a11feedb6ceeb50540f792ae439cf13 
+  token: ae057812944d1f34d0c6a6c9a35c5d9670763a2d  
 script:
 - mvn verify -DfailIfNoTests=false sonar:sonar -Dsonar.projectKey=404NotFoundPK_ISW2-BOOKKEEPER 
