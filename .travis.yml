@@ -1,7 +1,6 @@
 language: java
 jdk: 
-- openjdk11
+  - openjdk11
  
 script:
-  - mvn clean install
-  - mvn sonar:sonar
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=$TRAVIS_BUILD_DIR/tests/target/site/jacoco-aggregate/jacoco.xml -Dsonar.projectKey=404notfoundpk_ISW2-BOOKKEEPER
