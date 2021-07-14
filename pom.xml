@@ -112,7 +112,9 @@
     <redirectTestOutputToFile>true</redirectTestOutputToFile>
     <testRetryCount>2</testRetryCount>
 	
-	<sonar.projectKey>404notfoundpk:${project.groupId}:${project.artifactId}</sonar.projectKey>
+	<sonar.projectKey>404NotFoundPK_ISW2-BOOKKEEPER</sonar.projectKey>
+	<sonar.organization>404notfoundpk</sonar.organization>
+	<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	<sonar.links.homepage>https://github.com/404NotFoundPK/ISW2-bookkeeper</sonar.links.homepage>
 	<sonar.links.ci>https://travis-ci.org/404NotFoundPK/ISW2-bookkeeper</sonar.links.ci>
 	<sonar.links.scm>https://github.com/404NotFoundPK/ISW2-bookkeeper</sonar.links.scm>
