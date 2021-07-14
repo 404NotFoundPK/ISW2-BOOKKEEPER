@@ -35,8 +35,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn clean install
-             mvn sonar:sonar
+        run: mvn clean verify -Dcoverage=true 
+             mvn sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=$TRAVIS_BUILD_DIR/tests/target/site/jacoco-aggregate/jacoco.xml -Dsonar.projectKey=404notfoundpk_ISW2-BOOKKEEPER
 
       - name: 'Publish Test Report'
         if: always()
