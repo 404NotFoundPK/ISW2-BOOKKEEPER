@@ -10,7 +10,7 @@
     </parent>
 
 	<modelVersion>4.0.0</modelVersion>
-
+        <groupId>org.apache.bookkeeper</groupId>
 	<artifactId>bookkeeper-coverage</artifactId>
 	<name>Bookkeeper coverage</name>
 
@@ -231,28 +231,52 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+<profiles>
+    <profile>
+      <id>code-coverage</id>   
+      <activation>
+        <property>
+          <name>coverage</name>
+          <value>true</value>
+        </property>
+	    </activation>
+
+        <dependencies>
+
+          <dependency>
+            <artifactId>bookkeeper-benchmark</artifactId>
+            <groupId>org.apache.bookkeeper</groupId>
+            <version>4.14.0</version>
+          </dependency>
+
+          <dependency>
+            <artifactId>bookkeeper-server</artifactId>
+            <groupId>org.apache.bookkeeper</groupId>
+            <version>4.14.0</version>
+          </dependency>
+
+        </dependencies>
+
+        <build>
+          <plugins>
+            <plugin>
+              <groupId>org.jacoco</groupId>
+              <artifactId>jacoco-maven-plugin</artifactId>
+              <version>${jacoco-maven-plugin.version}</version>
+              <executions>
+                <execution>
+                  <id>report</id>
+                  <phase>test</phase>
+                  <goals>
+                    <goal>report-aggregate</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+          </plugins>
+        </build>
+
+    </profile>
+  </profiles>
 
 </project>
