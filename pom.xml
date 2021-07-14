@@ -40,7 +40,7 @@
     <connection>scm:git:https://github.com/apache/bookkeeper.git</connection>
     <developerConnection>scm:git:https://github.com/apache/bookkeeper.git</developerConnection>
     <url>https://github.com/apache/bookkeeper</url>
-    <tag>HEAD</tag>
+    <tag>v4.14.0-rc0</tag>
   </scm>
   <issueManagement>
     <system>JIRA</system>
@@ -51,6 +51,9 @@
     <url>https://builds.apache.org/job/bookkeeper-master</url>
   </ciManagement>
   <modules>
+    <module>bookkeeper-server</module>
+    <module>tests</module>
+
     <module>buildtools</module>
     <module>circe-checksum</module>
     <module>bookkeeper-common</module>
@@ -59,7 +62,6 @@
     <!-- TODO: move `bookkeeper-stats` and `bookkeeper-stats-providers` as submodules of `stats` -->
     <module>bookkeeper-stats</module>
     <module>bookkeeper-proto</module>
-    <module>bookkeeper-server</module>
     <module>bookkeeper-benchmark</module>
     <module>bookkeeper-stats-providers</module>
     <module>bookkeeper-http</module>
@@ -70,7 +72,6 @@
     <module>bookkeeper-dist</module>
     <module>shaded</module>
     <module>microbenchmarks</module>
-    <module>jacoco-tests-report-aggregator</module>
   </modules>
   <mailingLists>
     <mailingList>
@@ -110,9 +111,6 @@
     <javac.target>1.8</javac.target>
     <redirectTestOutputToFile>true</redirectTestOutputToFile>
     <testRetryCount>2</testRetryCount>
-    <sonar.projectKey>404NotFoundPK_ISW2-BOOKKEEPER</sonar.projectKey>
-    <sonar.organization>404notfoundpk</sonar.organization>
-    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
@@ -122,57 +120,56 @@
     <commons-collections4.version>4.1</commons-collections4.version>
     <commons-codec.version>1.6</commons-codec.version>
     <commons-configuration.version>1.10</commons-configuration.version>
-    <commons-compress.version>1.15</commons-compress.version>
+    <commons-compress.version>1.19</commons-compress.version>
     <commons-lang.version>2.6</commons-lang.version>
     <commons-lang3.version>3.6</commons-lang3.version>
     <commons-io.version>2.4</commons-io.version>
-    <bouncycastle.version>1.60</bouncycastle.version>
-    <curator.version>4.0.1</curator.version>
-    <dropwizard.version>3.1.0</dropwizard.version>
-    <etcd.version>0.0.2</etcd.version>
+    <bouncycastle.version>1.0.2</bouncycastle.version>
+    <curator.version>5.1.0</curator.version>
+    <dropwizard.version>3.2.5</dropwizard.version>
+    <etcd.version>0.5.4</etcd.version>
     <freebuilder.version>1.14.9</freebuilder.version>
     <google.code.version>3.0.2</google.code.version>
-    <google.errorprone.version>2.1.2</google.errorprone.version>
-    <grpc.version>1.18.0</grpc.version>
-    <guava.version>21.0</guava.version>
+    <google.errorprone.version>2.4.0</google.errorprone.version>
+    <grpc.version>1.33.0</grpc.version>
+    <guava.version>30.0-jre</guava.version>
     <kerby.version>1.1.1</kerby.version>
-    <hadoop.version>2.7.3</hadoop.version>
+    <hadoop.version>2.10.0</hadoop.version>
     <hamcrest.version>1.3</hamcrest.version>
     <hdrhistogram.version>2.1.10</hdrhistogram.version>
     <jackson.version>2.11.0</jackson.version>
-    <jackson-mapper-asl.version>1.9.11</jackson-mapper-asl.version>
-    <jcommander.version>1.48</jcommander.version>
-    <jetty.version>9.4.5.v20170502</jetty.version>
-    <jline.version>2.11</jline.version>
+    <jcommander.version>1.78</jcommander.version>
+    <jetty.version>9.4.33.v20201020</jetty.version>
     <jmh.version>1.19</jmh.version>
     <jmock.version>2.8.2</jmock.version>
     <jna.version>3.2.7</jna.version>
     <junit.version>4.12</junit.version>
     <libthrift5.version>0.5.0-1</libthrift5.version>
     <libthrift9.version>0.12.0</libthrift9.version>
-    <lombok.version>1.18.10</lombok.version>
+    <lombok.version>1.18.20</lombok.version>
     <lz4.version>1.3.0</lz4.version>
-    <mockito.version>3.3.3</mockito.version>
-    <netty.version>4.1.32.Final</netty.version>
-    <netty-boringssl.version>2.0.20.Final</netty-boringssl.version>
+    <mockito.version>3.0.0</mockito.version>
+    <netty.version>4.1.63.Final</netty.version>
+    <netty-boringssl.version>2.0.38.Final</netty-boringssl.version>
     <ostrich.version>9.1.3</ostrich.version>
     <powermock.version>2.0.2</powermock.version>
     <prometheus.version>0.8.1</prometheus.version>
     <datasketches.version>0.8.3</datasketches.version>
     <httpclient.version>4.5.5</httpclient.version>
-    <protobuf.version>3.5.1</protobuf.version>
-    <protoc3.version>3.5.1-1</protoc3.version>
-    <protoc-gen-grpc-java.version>1.12.0</protoc-gen-grpc-java.version>
+    <protobuf.version>3.14.0</protobuf.version>
+    <protoc3.version>3.14.0</protoc3.version>
+    <protoc-gen-grpc-java.version>${grpc.version}</protoc-gen-grpc-java.version>
     <reflections.version>0.9.11</reflections.version>
-    <rocksdb.version>5.13.1</rocksdb.version>
+    <rocksdb.version>6.16.4</rocksdb.version>
     <shrinkwrap.version>3.0.1</shrinkwrap.version>
     <slf4j.version>1.7.25</slf4j.version>
     <snakeyaml.version>1.19</snakeyaml.version>
     <spotbugs-annotations.version>3.1.8</spotbugs-annotations.version>
     <javax-annotations-api.version>1.3.2</javax-annotations-api.version>
-    <testcontainers.version>1.8.3</testcontainers.version>
-    <vertx.version>3.4.1</vertx.version>
-    <zookeeper.version>3.5.7</zookeeper.version>
+    <testcontainers.version>1.15.1</testcontainers.version>
+    <vertx.version>3.5.3</vertx.version>
+    <zookeeper.version>3.6.2</zookeeper.version>
+    <snappy.version>1.1.7</snappy.version>
     <jctools.version>2.1.2</jctools.version>
     <!-- plugin dependencies -->
     <apache-rat-plugin.version>0.12</apache-rat-plugin.version>
@@ -181,7 +178,7 @@
     <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
     <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
     <license-maven-plugin.version>1.6</license-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
     <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
     <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
     <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
@@ -194,13 +191,14 @@
     <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
     <maven-shade-plugin.version>3.2.0</maven-shade-plugin.version>
     <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-    <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <nar-maven-plugin.version>3.5.2</nar-maven-plugin.version>
     <os-maven-plugin.version>1.4.1.Final</os-maven-plugin.version>
-    <protobuf-maven-plugin.version>0.5.0</protobuf-maven-plugin.version>
+    <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
     <puppycrawl.checkstyle.version>6.19</puppycrawl.checkstyle.version>
     <spotbugs-maven-plugin.version>3.1.8</spotbugs-maven-plugin.version>
     <forkCount.variable>1</forkCount.variable>
+    <servlet-api.version>4.0.0</servlet-api.version>
   </properties>
 
   <!-- dependency definitions -->
@@ -236,11 +234,6 @@
         <groupId>org.inferred</groupId>
         <artifactId>freebuilder</artifactId>
         <version>${freebuilder.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>jline</groupId>
-        <artifactId>jline</artifactId>
-        <version>${jline.version}</version>
       </dependency>
 
       <!-- logging dependencies -->
@@ -309,12 +302,7 @@
       <!-- bouncy -->
       <dependency>
         <groupId>org.bouncycastle</groupId>
-        <artifactId>bcpkix-jdk15on</artifactId>
-        <version>${bouncycastle.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bouncycastle</groupId>
-        <artifactId>bcprov-ext-jdk15on</artifactId>
+        <artifactId>bc-fips</artifactId>
         <version>${bouncycastle.version}</version>
       </dependency>
       <!-- reflection libs -->
@@ -362,6 +350,11 @@
         <version>${jackson.version}</version>
       </dependency>
       <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${servlet-api.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.fasterxml.jackson.module</groupId>
         <artifactId>jackson-module-paranamer</artifactId>
         <version>${jackson.version}</version>
@@ -370,12 +363,6 @@
         <groupId>com.fasterxml.jackson.module</groupId>
         <artifactId>jackson-module-scala_2.11</artifactId>
         <version>${jackson.version}</version>
-      </dependency>
-      <!-- dependency needed for zookeeper jetty admin server -->
-      <dependency>
-        <groupId>org.codehaus.jackson</groupId>
-        <artifactId>jackson-mapper-asl</artifactId>
-        <version>${jackson-mapper-asl.version}</version>
       </dependency>
 
       <!-- protobuf dependencies -->
@@ -468,8 +455,10 @@
       <!-- grpc dependencies -->
       <dependency>
         <groupId>io.grpc</groupId>
-        <artifactId>grpc-all</artifactId>
+        <artifactId>grpc-bom</artifactId>
         <version>${grpc.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
 
       <!-- rocksdb dependencies -->
@@ -532,6 +521,13 @@
         </exclusions>
       </dependency>
 
+      <dependency>
+         <!-- needed by ZooKeeper server -->
+         <groupId>org.xerial.snappy</groupId>
+         <artifactId>snappy-java</artifactId>
+         <version>${snappy.version}</version>
+      </dependency>
+
       <!-- curator dependencies -->
       <dependency>
         <groupId>org.apache.curator</groupId>
@@ -577,6 +573,11 @@
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-webapp</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-servlet</artifactId>
         <version>${jetty.version}</version>
       </dependency>
@@ -588,13 +589,14 @@
         <version>${jctools.version}</version>
       </dependency>
 
-      <!-- stats dependencies -->
-      <!-- dropwizard metrics -->
+      <!-- dropwizard metrics, for stats and for ZooKeeper server -->
       <dependency>
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-core</artifactId>
         <version>${dropwizard.version}</version>
       </dependency>
+
+      <!-- stats dependencies -->
       <dependency>
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-jvm</artifactId>
@@ -627,7 +629,7 @@
         <artifactId>sketches-core</artifactId>
         <version>${datasketches.version}</version>
       </dependency>
-      
+
       <!-- http-client -->
       <dependency>
         <groupId>org.apache.httpcomponents</groupId>
@@ -667,7 +669,7 @@
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
-        <artifactId>mockito-inline</artifactId>
+        <artifactId>mockito-core</artifactId>
         <version>${mockito.version}</version>
       </dependency>
       <dependency>
@@ -689,11 +691,23 @@
         <groupId>org.arquillian.cube</groupId>
         <artifactId>arquillian-cube-docker</artifactId>
         <version>${arquillian-cube.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.github.docker-java</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.jboss.arquillian.junit</groupId>
         <artifactId>arquillian-junit-standalone</artifactId>
         <version>${arquillian-junit.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.github.docker-java</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.codehaus.groovy</groupId>
@@ -733,6 +747,12 @@
 
   <!-- dependencies for all modules -->
   <dependencies>
+   <!-- <dependency>
+       <groupId>br.usp.each.saeg</groupId>
+       <artifactId>ba-dua</artifactId>
+       <version>0.4.0</version>
+       <type>pom</type>
+    </dependency>-->
     <!-- provided dependencies (available at compilation and test classpths and *NOT* packaged) -->
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -769,6 +789,11 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -831,7 +856,7 @@
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>${spotbugs-maven-plugin.version}</version>
         <configuration>
-          <excludeFilterFile>${session.executionRootDirectory}/buildtools/src/main/resources/bookkeeper/findbugsExclude.xml</excludeFilterFile>
+         <!-- <excludeFilterFile>${session.executionRootDirectory}/buildtools/src/main/resources/bookkeeper/findbugsExclude.xml</excludeFilterFile>-->
         </configuration>
       </plugin>
       <plugin>
@@ -850,33 +875,15 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco-maven-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>prepare-agent</id>
-            <goals>
-             <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>report</id>
-            <goals>
-             <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-        </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
         <configuration>
-          <argLine>@{argLine} -Xmx2G -Djava.net.preferIPv4Stack=true -Dio.netty.leakDetection.level=paranoid</argLine>
+          <argLine>-Xmx2G -Djava.net.preferIPv4Stack=true -Dio.netty.leakDetection.level=paranoid</argLine>
           <redirectTestOutputToFile>${redirectTestOutputToFile}</redirectTestOutputToFile>
           <forkCount>${forkCount.variable}</forkCount>
           <reuseForks>false</reuseForks>
+          <trimStackTrace>false</trimStackTrace>
           <forkedProcessTimeoutInSeconds>1800</forkedProcessTimeoutInSeconds>
           <rerunFailingTestsCount>${testRetryCount}</rerunFailingTestsCount>
         </configuration>
@@ -886,11 +893,9 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven-javadoc-plugin.version}</version>
         <configuration>
+          <!--<additionalparam>-notimestamp</additionalparam>-->
           <!-- Prevent missing javadoc comments from being marked as errors -->
-          <additionalparam>-Xdoclint:none -notimestamp</additionalparam>
-          <additionalOptions>
-            <additionalOption>-Xdoclint:none -notimestamp</additionalOption>
-          </additionalOptions>
+          <doclint>none</doclint>
           <subpackages>org.apache.bookkeeper.client:org.apache.bookkeeper.client.api:org.apache.bookkeeper.common.annotation:org.apache.bookkeeper.conf:org.apache.bookkeeper.feature:org.apache.bookkeeper.stats</subpackages>
           <groups>
             <group>
@@ -982,6 +987,7 @@
 
             <!-- Website -->
             <exclude>site/**</exclude>
+            <exclude>site2/**</exclude>
 
             <!-- Thrift generated files -->
             <exclude>**/org/apache/distributedlog/thrift/*</exclude>
@@ -1019,38 +1025,127 @@
     </plugins>
   </build>
   <profiles>
-        <profile>
-            <id>coverage</id>
-            <activation>
-                <property>
-                    <name>coverage</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <properties>
-                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-                <sonar.organization>404notfoundpk</sonar.organization>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>prepare-agent</id>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonarsource.scanner.maven</groupId>
-                        <artifactId>sonar-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-  </project>
+    <profile>
+      <!-- profile used by jenkins CI -->
+      <id>code-coverage</id>
+      <activation>
+        <property>
+          <name>coverage</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <configuration>
+              <!-- @{argLine} is a variable injected by JaCoCo-->
+              <argLine>@{argLine} -Xmx2G -Djava.net.preferIPv4Stack=true</argLine>
+              <redirectTestOutputToFile>${redirectTestOutputToFile}</redirectTestOutputToFile>
+              <forkCount>${forkCount.variable}</forkCount>
+              <reuseForks>false</reuseForks>
+              <forkedProcessTimeoutInSeconds>1800</forkedProcessTimeoutInSeconds>
+              <!-- we want build to complete even in case of failures -->
+              <testFailureIgnore>true</testFailureIgnore>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- the profiles below are only for development purpose -->
+    <profile>
+      <id>dev</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <configuration>
+              <argLine>-Xmx2G -Djava.net.preferIPv4Stack=true</argLine>
+              <redirectTestOutputToFile>false</redirectTestOutputToFile>
+              <forkCount>${forkCount.variable}</forkCount>
+              <reuseForks>false</reuseForks>
+              <forkedProcessTimeoutInSeconds>1800</forkedProcessTimeoutInSeconds>
+              <trimStackTrace>false</trimStackTrace>
+              <rerunFailingTestsCount>0</rerunFailingTestsCount>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>dev-debug</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <configuration>
+              <argLine>-Xmx2G -Djava.net.preferIPv4Stack=true -Dbookkeeper.root.logger=DEBUG,CONSOLE</argLine>
+              <redirectTestOutputToFile>false</redirectTestOutputToFile>
+              <forkCount>${forkCount.variable}</forkCount>
+              <reuseForks>false</reuseForks>
+              <forkedProcessTimeoutInSeconds>1800</forkedProcessTimeoutInSeconds>
+              <trimStackTrace>false</trimStackTrace>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>jdk11-no-spotbugs</id>
+      <activation>
+        <jdk>[11,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+           <plugin>
+             <groupId>com.github.spotbugs</groupId>
+             <artifactId>spotbugs-maven-plugin</artifactId>
+             <configuration>
+                 <skip>true</skip>
+             </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>apache-release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>source-release-assembly</id>
+                <configuration>
+                  <!-- we have a dedicated distribution module in bookkeeper-dist -->
+                  <skipAssembly>true</skipAssembly>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
