@@ -1,11 +1,7 @@
 language: java
 jdk: 
 - openjdk11
-
-addons:
- sonarcloud:
-  organization: 404notfoundpk
-  token: b48482c0cb46dee9f00a30133236a6512178c1a8
-  
+ 
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=404NotFoundPK_ISW2-BOOKKEEPER
+  - mvn clean install
+  - mvn sonar:sonar
