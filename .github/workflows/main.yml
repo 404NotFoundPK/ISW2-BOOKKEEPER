@@ -31,27 +31,11 @@ jobs:
       #  # Ignore the failure of a step and avoid terminating the job.
       #  continue-on-error: true
 
-      - name: Cache Maven packages and Google Jib cache
-        uses: actions/cache@v2
-        with:
-          path: | 
-            ~/.m2
-            ~/.cache/google-cloud-tools-java/jib
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2          
-
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.java.pmd.reportPaths=target/pmd.xml,target/dependency-check-report-pmd.xml -Dsonar.java.spotbugs.reportPaths=target/spotbugsXml.xml
+        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=404NotFoundPK_ISW2-BOOKKEEPER
 
       - name: 'Publish Test Report'
         if: always()
