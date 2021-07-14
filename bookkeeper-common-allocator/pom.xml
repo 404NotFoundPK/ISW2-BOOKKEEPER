@@ -24,6 +24,9 @@
   </parent>
   <artifactId>bookkeeper-common-allocator</artifactId>
   <name>Apache BookKeeper :: Common :: Allocator</name>
+   <properties>
+  <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+</properties>
   <dependencies>
      <dependency>
       <groupId>io.netty</groupId>
