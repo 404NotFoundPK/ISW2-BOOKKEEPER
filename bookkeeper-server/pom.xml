@@ -27,7 +27,6 @@
 
   <properties>
     <pitest.version>1.6.7</pitest.version>
-    <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
   </properties>
 
   <dependencies>
