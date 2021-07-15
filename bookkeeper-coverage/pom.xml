@@ -14,14 +14,14 @@
 	<artifactId>bookkeeper-coverage</artifactId>
 	<name>Bookkeeper coverage</name>
 
-	<!--Add dependencies whit module tested for Jacoco-->
+	<!--Add dependencies for Jacoco-->
     <dependencies>
-        <dependency>
-            <groupId>org.apache.bookkeeper</groupId>
-            <artifactId>bookkeeper</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>org.apache.bookkeeper</groupId>
+      <artifactId>bookkeeper-server</artifactId>
+      <version>4.14.0</version>
+    </dependency>
+  </dependencies>
 
     <build>
         <plugins>
