@@ -35,14 +35,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=404NotFoundPK_ISW2-BOOKKEEPER 
-             
-      - name: 'Publish Test Report'
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: 'test-reports'
-          path: |
-             target/*.html
-             target/site/
-             ./anchore-reports/
+        run: mvn clean test -Pcoverage
+        
+      - name: Build and analyze 2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn sonar:sonar -Dsonar.projectKey=404NotFoundPK_ISW2-BOOKKEEPER
