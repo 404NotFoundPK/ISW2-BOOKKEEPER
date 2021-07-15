@@ -53,7 +53,6 @@
   <modules>
     <module>bookkeeper-server</module>
     <module>tests</module>
-    <module>bookkeeper-coverage</module>
     <module>buildtools</module>
     <module>circe-checksum</module>
     <module>bookkeeper-common</module>
@@ -71,7 +70,7 @@
     <module>bookkeeper-dist</module>
     <module>shaded</module>
     <module>microbenchmarks</module>
-
+    <module>bookkeeper-coverage</module>
   </modules>
   <mailingLists>
     <mailingList>
@@ -112,15 +111,7 @@
     <redirectTestOutputToFile>true</redirectTestOutputToFile>
     <testRetryCount>2</testRetryCount>
 	
-	<sonar.organization>404notfoundpk</sonar.organization>
-	<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-	<sonar.projectName>ISW2-BOOKKEEPER</sonar.projectName>
-	<sonar.language>java</sonar.language>
-	<sonar.java.source>11</sonar.java.source>
-	<sonar.java.file.suffixes>.java</sonar.java.file.suffixes>
-	<sonar.verbose>true</sonar.verbose>
-	<aggregate.report.dir>bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
-	<sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
+	<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
     <arquillian-junit.version>1.6.0.Final</arquillian-junit.version>
@@ -858,44 +849,18 @@
           </executions>
         </plugin>
 	<plugin>
-		<groupId>org.jacoco</groupId>
-		<artifactId>jacoco-maven-plugin</artifactId>
-		<version>${jacoco-maven-plugin.version}</version>
-		<executions>
-			<execution>
-				<goals>
-					<goal>prepare-agent</goal>
-				</goals>
-			</execution>
-		</executions>
-	</plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.6.0.1398</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.5</version>
+                </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
-	<plugin>
-		<groupId>org.sonarsource.scanner.maven</groupId>
-		<artifactId>sonar-maven-plugin</artifactId>
-		<version>3.6.0.1398</version>
-	</plugin>
-	<plugin>
-		<groupId>org.jacoco</groupId>
-		<artifactId>jacoco-maven-plugin</artifactId>
-		<version>${jacoco-maven-plugin.version}</version>
-		<executions>
-			<execution>
-				<goals>
-					<goal>prepare-agent</goal>
-				</goals>
-			</execution>
-			<execution>
-				<id>report</id>
-				<phase>verify</phase>
-				<goals>
-					<goal>report</goal>
-				</goals>
-			</execution>
-		</executions>
-	</plugin>
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
@@ -1069,39 +1034,4 @@
       </plugin>
     </plugins>
   </build>
-  <profiles>
-  <profile>
-        <id>sonar</id>
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
-        <properties>
-          <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
-          <sonar.organization>404notfoundpk</sonar.organization>
-          <sonar.login>adb4794db44740ef51a4f628e60da2aac6c6a6af</sonar.login>
-        </properties>
-    </profile>
-    <profile>
-      <id>coverage</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>prepare-agent</id>
-                <goals>
-                  <goal>prepare-agent</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>
