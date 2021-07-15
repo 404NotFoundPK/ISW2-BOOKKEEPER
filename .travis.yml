@@ -8,4 +8,4 @@ addons:
     token: 031e440393604965254d5f1adbafbea0f8ff252a
  
 script:
-  - mvn test -Dcoverage=true sonar:sonar -Dsonar.projectKey=404notfoundpk_ISW2-BOOKKEEPER
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.projectKey=404notfoundpk_ISW2-BOOKKEEPER
