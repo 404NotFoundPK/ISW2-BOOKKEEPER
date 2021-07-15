@@ -120,7 +120,7 @@
 	<sonar.java.source>11</sonar.java.source>
 	<sonar.java.file.suffixes>.java</sonar.java.file.suffixes>
 	<sonar.verbose>true</sonar.verbose>
-	<sonar.coverage.jacoco.xmlReportPaths>${project.buildDir}/bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+	<aggregate.report.dir>bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
     <arquillian-junit.version>1.6.0.Final</arquillian-junit.version>
