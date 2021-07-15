@@ -72,38 +72,6 @@
     <module>microbenchmarks</module>
     <module>bookkeeper-coverage</module>
   </modules>
-  <mailingLists>
-    <mailingList>
-      <name>BookKeeper User</name>
-      <subscribe>user-subscribe@bookkeeper.apache.org</subscribe>
-      <unsubscribe>user-unsubscribe@bookkeeper.apache.org</unsubscribe>
-      <post>user@bookkeeper.apache.org</post>
-      <archive>http://www.mail-archive.com/user@bookkeeper.apache.org</archive>
-    </mailingList>
-    <mailingList>
-      <name>BookKeeper Dev</name>
-      <subscribe>dev-subscribe@bookkeeper.apache.org</subscribe>
-      <unsubscribe>dev-unsubscribe@bookkeeper.apache.org</unsubscribe>
-      <post>dev@bookkeeper.apache.org</post>
-      <archive>http://www.mail-archive.com/dev@bookkeeper.apache.org</archive>
-    </mailingList>
-    <mailingList>
-      <name>BookKeeper Commits</name>
-      <subscribe>commits-subscribe@bookkeeper.apache.org</subscribe>
-      <unsubscribe>commits-unsubscribe@bookkeeper.apache.org</unsubscribe>
-      <post>commits@bookkeeper.apache.org</post>
-      <archive>http://www.mail-archive.com/commits@bookkeeper.apache.org</archive>
-    </mailingList>
-  </mailingLists>
-  <developers>
-    <developer>
-      <name>The Apache BookKeeper Team</name>
-      <email>dev@bookkeeper.apache.org</email>
-      <url>http://bookkeeper.apache.org</url>
-      <organization>Apache Software Foundation</organization>
-      <organizationUrl>http://www.apache.org</organizationUrl>
-    </developer>
-  </developers>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -112,7 +80,10 @@
     <testRetryCount>2</testRetryCount>
 	<sonar.organization>404notfoundpk</sonar.organization>
 	<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-	<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+	<!--<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths> -->
+	  <!--Jacoco-->
+    <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+    <aggregate.report.dir>bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
     <arquillian-junit.version>1.6.0.Final</arquillian-junit.version>
@@ -179,7 +150,6 @@
     <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
     <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
     <license-maven-plugin.version>1.6</license-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
     <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
     <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
     <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
@@ -849,16 +819,17 @@
             </execution>
           </executions>
         </plugin>
+	<!-- add custom jacoco -->
 	<plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.6.0.1398</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.5</version>
-                </plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>3.9.0.2155</version>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${jacoco-maven-plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -1035,4 +1006,55 @@
       </plugin>
     </plugins>
   </build>
+<profiles>
+	<profile>
+      <id>coverage</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+
+          <plugin>
+            <groupId>org.eluder.coveralls</groupId>
+            <artifactId>coveralls-maven-plugin</artifactId>
+            <version>${coveralls-maven-plugin.version}</version>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <configuration>
+
+              <argLine>@{argLine} -Xmx512m -Dtest.junit.threads=${surefire-forkcount} -Dzookeeper.junit.threadid=${surefire.forkNumber}</argLine>
+              <redirectTestOutputToFile>${redirectTestOutputToFile}</redirectTestOutputToFile>
+              <forkCount>${surefire-forkcount}</forkCount>
+              <reuseForks>false</reuseForks>
+              <forkedProcessTimeoutInSeconds>1800</forkedProcessTimeoutInSeconds>
+              <systemPropertyVariables>
+                <build.test.dir>${project.build.directory}/surefire</build.test.dir>
+                <zookeeper.DigestAuthenticationProvider.superDigest>super:D/InIHSb7yEEbrWz8b9l71RjZJU=</zookeeper.DigestAuthenticationProvider.superDigest>
+              </systemPropertyVariables>
+
+              <testFailureIgnore>true</testFailureIgnore>
+            </configuration>
+          </plugin>
+
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+</profiles>
 </project>
