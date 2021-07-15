@@ -24,7 +24,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.bookkeeper</groupId>
   <version>4.14.0</version>
-  <artifactId>bookkeeper</artifactId>
+  <artifactId>parent</artifactId>
   <packaging>pom</packaging>
   <name>ISW2-BookKeeper</name>
   <url>http://bookkeeeper.apache.org</url>
