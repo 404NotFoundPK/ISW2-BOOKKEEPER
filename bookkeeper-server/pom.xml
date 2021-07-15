@@ -294,38 +294,6 @@
     </plugins>
   </build>
   <profiles>
-<profile>
-            <id>ba-dua</id>
-            <activation>
-                <property>
-                    <name>badua</name>
-                    <value>true</value>
-                </property>
-            </activation>
-
-            <build>
-                <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <executions>
-                	<execution>
-                		<goals>
-                			<goal>test</goal>
-                		</goals>
-                	</execution>
-                </executions>
-                <configuration>
-                    <argLine>
-                        -javaagent:./../ba-dua/ba-dua-agent-rt-0.4.0-all.jar
-                        -Xbootclasspath/p:./../ba-dua/ba-dua-agent-rt-0.4.0-all.jar
-                    </argLine>
-                    <forkCount>1</forkCount>
-                </configuration>
-            </plugin>
-                </plugins>
-            </build>
-        </profile>
     <profile>
       <id>mutation-testing</id>
 
