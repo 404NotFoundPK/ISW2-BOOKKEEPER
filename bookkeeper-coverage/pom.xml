@@ -14,10 +14,6 @@
 	<artifactId>bookkeeper-coverage</artifactId>
 	<name>Bookkeeper coverage</name>
 
-	<properties>
-		<sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.bookkeeper</groupId>
@@ -231,52 +227,22 @@
 		</dependency>
 	</dependencies>
 
-<profiles>
-    <profile>
-      <id>code-coverage</id>   
-      <activation>
-        <property>
-          <name>coverage</name>
-          <value>true</value>
-        </property>
-	    </activation>
-
-        <dependencies>
-
-          <dependency>
-            <artifactId>bookkeeper-benchmark</artifactId>
-            <groupId>org.apache.bookkeeper</groupId>
-            <version>4.14.0</version>
-          </dependency>
-
-          <dependency>
-            <artifactId>bookkeeper-server</artifactId>
-            <groupId>org.apache.bookkeeper</groupId>
-            <version>4.14.0</version>
-          </dependency>
-
-        </dependencies>
-
-        <build>
-          <plugins>
+<build>
+        <plugins>
             <plugin>
-              <groupId>org.jacoco</groupId>
-              <artifactId>jacoco-maven-plugin</artifactId>
-              <version>${jacoco-maven-plugin.version}</version>
-              <executions>
-                <execution>
-                  <id>report</id>
-                  <phase>verify</phase>
-                  <goals>
-                    <goal>report-aggregate</goal>
-                  </goals>
-                </execution>
-              </executions>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>report</id>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
             </plugin>
-          </plugins>
-        </build>
-
-    </profile>
-  </profiles>
+        </plugins>
+    </build>
 
 </project>
