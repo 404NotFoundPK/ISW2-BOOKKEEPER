@@ -31,11 +31,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>dnsjava</groupId>
-      <artifactId>dnsjava</artifactId>
-      <version>3.2.2</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.bookkeeper</groupId>
       <artifactId>bookkeeper-common</artifactId>
       <version>${project.parent.version}</version>
@@ -322,12 +317,12 @@
 
             <configuration>
               <targetClasses>
-                <param>org.apache.bookkeeper.net.DNS*</param>
-                <param>org.apache.bookkeeper.client.LedgerHandle*</param>
+                <param>org.apache.bookkeeper.conf.ServerConfiguration</param>
+                <param>org.apache.bookkeeper.proto.BookieClientImpl</param>
               </targetClasses>
               <targetTests>
-                <param>org.apache.bookkeeper.examTests.DNSTest</param>
-                <param>org.apache.bookkeeper.examTests.LedgerHandleTest</param>
+                <param>org.apache.bookkeeper.isw2tests.ServerConfigurationTest</param>
+                <param>org.apache.bookkeeper.isw2tests.BookieClientImplTest</param>
               </targetTests>
             </configuration>
           </plugin>
