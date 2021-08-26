@@ -1,3 +1,5 @@
+package org.apache.bookkeeper.isw2tests;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
@@ -18,7 +20,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import io.netty.buffer.PooledByteBufAllocator;
-package org.apache.bookkeeper.isw2tests;
 
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.epoll.EpollEventLoopGroup;
