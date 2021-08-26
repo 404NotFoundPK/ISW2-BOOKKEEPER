@@ -860,15 +860,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
-        <configuration>
-          <argLine>-Xmx2G -Djava.net.preferIPv4Stack=true -Dio.netty.leakDetection.level=paranoid</argLine>
-          <redirectTestOutputToFile>${redirectTestOutputToFile}</redirectTestOutputToFile>
-          <forkCount>${forkCount.variable}</forkCount>
-          <reuseForks>false</reuseForks>
-          <trimStackTrace>false</trimStackTrace>
-          <forkedProcessTimeoutInSeconds>1800</forkedProcessTimeoutInSeconds>
-          <rerunFailingTestsCount>${testRetryCount}</rerunFailingTestsCount>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -1024,35 +1015,34 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>${maven-surefire-plugin.version}</version>
-            <configuration>
-
-              <argLine>@{argLine} -Xmx512m -Dtest.junit.threads=${surefire-forkcount} -Dzookeeper.junit.threadid=${surefire.forkNumber}</argLine>
-              <redirectTestOutputToFile>${redirectTestOutputToFile}</redirectTestOutputToFile>
-              <forkCount>${surefire-forkcount}</forkCount>
-              <reuseForks>false</reuseForks>
-              <forkedProcessTimeoutInSeconds>1800</forkedProcessTimeoutInSeconds>
-              <systemPropertyVariables>
-                <build.test.dir>${project.build.directory}/surefire</build.test.dir>
-                <zookeeper.DigestAuthenticationProvider.superDigest>super:D/InIHSb7yEEbrWz8b9l71RjZJU=</zookeeper.DigestAuthenticationProvider.superDigest>
-              </systemPropertyVariables>
-
-              <testFailureIgnore>true</testFailureIgnore>
-            </configuration>
           </plugin>
 
-          <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>${jacoco-maven-plugin.version}</version>
-            <executions>
-              <execution>
-                <id>prepare-agent</id>
-                <goals>
-                  <goal>prepare-agent</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
+           <plugin>
+		<groupId>org.jacoco</groupId>
+		<artifactId>jacoco-maven-plugin</artifactId>
+		<version>${jacoco-maven-plugin.version}</version>
+		<executions>
+		      <execution>
+			<goals>
+			  <goal>prepare-agent</goal>
+			</goals>
+		      </execution>
+		      <execution>
+			<id>report</id>
+			<phase>test</phase>
+			<goals>
+			    <goal>report</goal>
+			</goals>
+			<configuration>
+
+			    <sourceDirectory>src/main/java</sourceDirectory>
+			    <!-- see above -->
+			    <outputDirectory>coverage/jacoco-report</outputDirectory>
+
+			</configuration>
+            		</execution>
+            	</executions>
+      		</plugin>
         </plugins>
       </build>
     </profile>
