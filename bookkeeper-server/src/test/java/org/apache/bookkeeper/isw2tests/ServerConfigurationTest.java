@@ -6,19 +6,26 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import org.apache.bookkeeper.conf.ServerConfiguration;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
+// import org.apache.bookkeeper.conf.ServerConfiguration;
 import org.apache.commons.configuration.ConfigurationException;
 
+@RunWith(Parameterized.class)
 public class ServerConfigurationTest {
 
-    private final ServerConfiguration serverConf;
+    private final ServerConfigurationB serverConf;
 
     public ServerConfigurationTest() {
-        serverConf = new ServerConfiguration();
+        serverConf = new ServerConfigurationB();
     }
 
     @Before
@@ -30,7 +37,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testEphemeralPortsAllowed() throws ConfigurationException {
-        ServerConfiguration conf = new ServerConfiguration();
+        ServerConfigurationB conf = new ServerConfigurationB();
         conf.setAllowEphemeralPorts(true);
         conf.setBookiePort(0);
 
@@ -40,7 +47,7 @@ public class ServerConfigurationTest {
 
     @Test(expected = ConfigurationException.class)
     public void testEphemeralPortsDisallowed() throws ConfigurationException {
-        ServerConfiguration conf = new ServerConfiguration();
+        ServerConfigurationB conf = new ServerConfigurationB();
         conf.setAllowEphemeralPorts(false);
         conf.setBookiePort(0);
         conf.validate();
@@ -48,7 +55,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testSetExtraServerComponents() {
-        ServerConfiguration conf = new ServerConfiguration();
+        ServerConfigurationB conf = new ServerConfigurationB();
         assertNull(conf.getExtraServerComponents());
         String[] components = new String[] {
             "test1", "test2", "test3"
@@ -67,7 +74,7 @@ public class ServerConfigurationTest {
 
     @Test(expected = ConfigurationException.class)
     public void testMismatchofJournalAndFileInfoVersionsOlderJournalVersion() throws ConfigurationException {
-        ServerConfiguration conf = new ServerConfiguration();
+        ServerConfigurationB conf = new ServerConfigurationB();
         conf.setJournalFormatVersionToWrite(5);
         conf.setFileInfoFormatVersionToWrite(1);
         conf.validate();
@@ -75,7 +82,7 @@ public class ServerConfigurationTest {
 
     @Test(expected = ConfigurationException.class)
     public void testMismatchofJournalAndFileInfoVersionsOlderFileInfoVersion() throws ConfigurationException {
-        ServerConfiguration conf = new ServerConfiguration();
+        ServerConfigurationB conf = new ServerConfigurationB();
         conf.setJournalFormatVersionToWrite(6);
         conf.setFileInfoFormatVersionToWrite(0);
         conf.validate();
@@ -83,12 +90,12 @@ public class ServerConfigurationTest {
 
     @Test
     public void testValidityOfJournalAndFileInfoVersions() throws ConfigurationException {
-        ServerConfiguration conf = new ServerConfiguration();
+        ServerConfigurationB conf = new ServerConfigurationB();
         conf.setJournalFormatVersionToWrite(5);
         conf.setFileInfoFormatVersionToWrite(0);
         conf.validate();
 
-        conf = new ServerConfiguration();
+        conf = new ServerConfigurationB();
         conf.setJournalFormatVersionToWrite(6);
         conf.setFileInfoFormatVersionToWrite(1);
         conf.validate();
@@ -96,7 +103,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testEntryLogSizeLimit() throws ConfigurationException {
-        ServerConfiguration conf = new ServerConfiguration();
+        ServerConfigurationB conf = new ServerConfigurationB();
         try {
             conf.setEntryLogSizeLimit(-1);
             fail("should fail setEntryLogSizeLimit since `logSizeLimit` is too small");
@@ -135,7 +142,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testCompactionSettings() {
-        ServerConfiguration conf = new ServerConfiguration();
+        ServerConfigurationB conf = new ServerConfigurationB();
         long major, minor;
 
         // Default Values
@@ -198,5 +205,121 @@ public class ServerConfigurationTest {
         minorThreshold = conf.getMinorCompactionThreshold();
         Assert.assertEquals(0.6, majorThreshold, 0.00001);
         Assert.assertEquals(0.3, minorThreshold, 0.00001);
+    }
+
+    @Test
+    public void testForBetterMutationSkipListArenaChunkSize() throws ConfigurationException {     
+        ServerConfigurationB conf = new ServerConfigurationB();
+        conf.setAllowEphemeralPorts(true);
+        conf.setBookiePort(0); 
+        conf.setSkipListArenaChunkSize(4194304);
+        conf.setSkipListArenaMaxAllocSize(4194304);
+        conf.validate();
+        // Arena max allocation size should be smaller than the chunk size.
+        int arenaChunk = conf.getSkipListArenaChunkSize();
+        int arenaMax = conf.getSkipListArenaMaxAllocSize();
+        Assert.assertEquals(arenaChunk, arenaMax);
+    }
+
+    @Test
+    public void testForBetterMutationJournalAlignmentSize() throws ConfigurationException {     
+        ServerConfigurationB conf = new ServerConfigurationB();
+        conf.setAllowEphemeralPorts(true);
+        conf.setBookiePort(0); 
+        conf.setJournalAlignmentSize(16 * 1024 * 1024);
+        // default conf.setJournalPreAllocSizeMB(16);
+        conf.validate();
+        // Invalid preallocation size.
+        int journalSize = conf.getJournalAlignmentSize();
+        int journalPreAllocSize = conf.getJournalPreAllocSizeMB() * 1024 * 1024;
+        Assert.assertEquals(journalSize, journalPreAllocSize);
+    }
+
+    @Test
+    public void testForBetterMutationIsEntryLogPerLedgerEnabled() throws ConfigurationException {     
+        ServerConfigurationB conf = new ServerConfigurationB();
+        conf.setAllowEphemeralPorts(true);
+        conf.setBookiePort(0); 
+
+        conf.setEntryLogPerLedgerEnabled(true);
+        conf.setUseTransactionalCompaction(false);
+        conf.validate();
+        // Arena max allocation size should be smaller than the chunk size.
+        boolean isEntryLog = conf.isEntryLogPerLedgerEnabled();
+        boolean useTransactional = conf.getUseTransactionalCompaction();
+        Assert.assertNotEquals(isEntryLog, useTransactional);
+    }
+
+    @Test
+    public void testForBetterMutationIsEntryLogPerLedgerEnabled2() throws ConfigurationException {     
+        ServerConfigurationB conf = new ServerConfigurationB();
+        conf.setAllowEphemeralPorts(true);
+        conf.setBookiePort(0); 
+
+        conf.setEntryLogPerLedgerEnabled(false);
+        conf.setUseTransactionalCompaction(true);
+        conf.validate();
+        // Arena max allocation size should be smaller than the chunk size.
+        boolean isEntryLog = conf.isEntryLogPerLedgerEnabled();
+        boolean useTransactional = conf.getUseTransactionalCompaction();
+        Assert.assertNotEquals(isEntryLog, useTransactional);
+    }
+
+    @Test
+    public void testForBetterCoverageArenaChunkMinor() throws ConfigurationException {     
+        ServerConfigurationB conf = new ServerConfigurationB();
+        conf.setAllowEphemeralPorts(true);
+        conf.setBookiePort(0); 
+        conf.setSkipListArenaChunkSize(120);
+        conf.setSkipListArenaMaxAllocSize(4194304);
+        try {
+            conf.validate();  
+        } catch (Exception e) {
+            //excepted
+            // Arena max allocation size should be smaller than the chunk size.
+        }
+    }
+
+    @Parameters
+    public static Collection<Object[]> data() {
+        Object[][] data = new Object[][]{{120}, {512}, {16777728}, {16777216}};
+        return Arrays.asList(data);
+    }
+
+    @Parameter(0)
+    public int value;  // 120 // 512 // 16777728 // 16777216
+    
+    @Test
+    public void testForBetterCoverageJournalAlignmentSize() throws ConfigurationException {     
+        ServerConfigurationB conf = new ServerConfigurationB();
+        conf.setAllowEphemeralPorts(true);
+        conf.setBookiePort(0); 
+        conf.setJournalAlignmentSize(value);
+        // default JournalPreAllocSizeMB is 16 * 1024 * 1024 = 16777216
+        // journal alignment must be divided by 512
+        try {
+            conf.validate(); 
+            // no errors if 512 or 16777216
+        } catch (Exception e) {
+            // excepted if 16777728
+            // journal alignment must be < JournalPreAllocSizeMB * 1024 * 1024
+            // excepted if 120 getJournalAlignmentSize() must be > 512
+        }
+    }
+
+    @Test
+    public void testForBetterCoverageEntryLogPerLedgerEnabled() {     
+        ServerConfigurationB conf = new ServerConfigurationB();
+        conf.setAllowEphemeralPorts(true);
+        conf.setBookiePort(0); 
+
+        conf.setEntryLogPerLedgerEnabled(true);
+        conf.setUseTransactionalCompaction(true);
+        try {
+            conf.validate();  
+        } catch (Exception e) {
+            // excepted
+            // When entryLogPerLedger is enabled , it is unnecessary to use transactional compaction
+        }
     }
 }
