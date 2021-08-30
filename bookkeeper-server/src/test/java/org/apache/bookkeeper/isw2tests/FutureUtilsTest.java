@@ -28,6 +28,7 @@ import java.util.function.Function;
 import java.util.stream.LongStream;
 import org.apache.bookkeeper.common.util.OrderedScheduler;
 import org.apache.bookkeeper.common.util.SafeRunnable;
+import org.apache.bookkeeper.common.concurrent.FutureUtils;
 import org.apache.bookkeeper.stats.OpStatsLogger;
 import org.junit.Test;
 
