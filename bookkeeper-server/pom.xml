@@ -18,19 +18,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>bookkeeper</artifactId>
+    <artifactId>parent</artifactId>
     <groupId>org.apache.bookkeeper</groupId>
     <version>4.14.0</version>
+     <relativePath>..</relativePath>
   </parent>
   <artifactId>bookkeeper-server</artifactId>
+   <packaging>jar</packaging>
   <name>Apache BookKeeper :: Server</name>
 
-  <properties>
-    <pitest.version>1.6.7</pitest.version>
+ <properties>
     <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
+
   </properties>
 
   <dependencies>
+     <dependency>
+      <groupId>org.pitest</groupId>
+      <artifactId>pitest-maven</artifactId>
+      <version>1.5.1</version>
+      <type>maven-plugin</type>
+    </dependency>
     <dependency>
       <groupId>org.apache.bookkeeper</groupId>
       <artifactId>bookkeeper-common</artifactId>
@@ -184,6 +192,15 @@
       <version>${project.parent.version}</version>
       <scope>test</scope>
     </dependency>
+     <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -200,31 +217,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <!-- exclude generated file //-->
-            <exclude>**/target/**/*</exclude>
-            <exclude>**/.classpath</exclude>
-            <exclude>**/.gitignore</exclude>
-            <exclude>**/.project</exclude>
-            <exclude>**/.checkstyle</exclude>
-            <exclude>**/.settings/*</exclude>
-            <exclude>src/test/resources/server-key.pem</exclude>
-            <exclude>src/test/resources/server-key.p12</exclude>
-            <exclude>src/test/resources/server-key.jks</exclude>
-            <exclude>src/test/resources/server-cert.pem</exclude>
-            <exclude>src/test/resources/client-key.pem</exclude>
-            <exclude>src/test/resources/client-key.p12</exclude>
-            <exclude>src/test/resources/client-key.jks</exclude>
-            <exclude>src/test/resources/client-cert.pem</exclude>
-            <exclude>src/test/resources/keyStoreClientPassword.txt</exclude>
-            <exclude>src/test/resources/keyStoreServerPassword.txt</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
@@ -232,30 +224,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
-        <configuration>
-          <excludes>
-            <exclude>**/auth/**</exclude>
-            <exclude>**/bookie/**</exclude>
-            <exclude>**/client/**</exclude>
-            <exclude>**/conf/**</exclude>
-            <exclude>**/discover/**</exclude>
-            <exclude>**/auth/**</exclude>
-            <exclude>**/meta/**</exclude>
-            <exclude>**/metastore/**</exclude>
-            <exclude>**/net/**</exclude>
-            <exclude>**/proto/**</exclude>
-            <exclude>**/replication/**</exclude>
-            <exclude>**/sasl/**</exclude>
-            <exclude>**/server/**</exclude>
-            <exclude>**/test/**</exclude>
-            <exclude>**/tls/**</exclude>
-            <exclude>**/util/**</exclude>
-            <exclude>**/verifier/**</exclude>
-            <exclude>**/versioning/**</exclude>
-            <exclude>**/zookeeper/**</exclude>
-          </excludes>
-          <trimStackTrace>false</trimStackTrace>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
