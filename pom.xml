@@ -89,7 +89,7 @@
     <testRetryCount>2</testRetryCount>
 	  <!--Jacoco-->
     <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
-    <aggregate.report.dir>jacoco-aggregate-report/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+    <aggregate.report.dir>bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
     <arquillian-junit.version>1.6.0.Final</arquillian-junit.version>
