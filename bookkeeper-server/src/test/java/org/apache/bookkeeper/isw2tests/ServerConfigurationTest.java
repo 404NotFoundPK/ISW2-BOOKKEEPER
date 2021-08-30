@@ -22,10 +22,10 @@ import org.apache.commons.configuration.ConfigurationException;
 @RunWith(Parameterized.class)
 public class ServerConfigurationTest {
 
-    private final ServerConfigurationB serverConf;
+    private final ServerConfiguration serverConf;
 
     public ServerConfigurationTest() {
-        serverConf = new ServerConfigurationB();
+        serverConf = new ServerConfiguration();
     }
 
     @Before
@@ -37,7 +37,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testEphemeralPortsAllowed() throws ConfigurationException {
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setAllowEphemeralPorts(true);
         conf.setBookiePort(0);
 
@@ -47,7 +47,7 @@ public class ServerConfigurationTest {
 
     @Test(expected = ConfigurationException.class)
     public void testEphemeralPortsDisallowed() throws ConfigurationException {
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setAllowEphemeralPorts(false);
         conf.setBookiePort(0);
         conf.validate();
@@ -55,7 +55,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testSetExtraServerComponents() {
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         assertNull(conf.getExtraServerComponents());
         String[] components = new String[] {
             "test1", "test2", "test3"
@@ -74,7 +74,7 @@ public class ServerConfigurationTest {
 
     @Test(expected = ConfigurationException.class)
     public void testMismatchofJournalAndFileInfoVersionsOlderJournalVersion() throws ConfigurationException {
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setJournalFormatVersionToWrite(5);
         conf.setFileInfoFormatVersionToWrite(1);
         conf.validate();
@@ -82,7 +82,7 @@ public class ServerConfigurationTest {
 
     @Test(expected = ConfigurationException.class)
     public void testMismatchofJournalAndFileInfoVersionsOlderFileInfoVersion() throws ConfigurationException {
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setJournalFormatVersionToWrite(6);
         conf.setFileInfoFormatVersionToWrite(0);
         conf.validate();
@@ -90,12 +90,12 @@ public class ServerConfigurationTest {
 
     @Test
     public void testValidityOfJournalAndFileInfoVersions() throws ConfigurationException {
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setJournalFormatVersionToWrite(5);
         conf.setFileInfoFormatVersionToWrite(0);
         conf.validate();
 
-        conf = new ServerConfigurationB();
+        conf = new ServerConfiguration();
         conf.setJournalFormatVersionToWrite(6);
         conf.setFileInfoFormatVersionToWrite(1);
         conf.validate();
@@ -103,7 +103,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testEntryLogSizeLimit() throws ConfigurationException {
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         try {
             conf.setEntryLogSizeLimit(-1);
             fail("should fail setEntryLogSizeLimit since `logSizeLimit` is too small");
@@ -142,7 +142,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testCompactionSettings() {
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         long major, minor;
 
         // Default Values
@@ -209,7 +209,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testForBetterMutationSkipListArenaChunkSize() throws ConfigurationException {     
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setAllowEphemeralPorts(true);
         conf.setBookiePort(0); 
         conf.setSkipListArenaChunkSize(4194304);
@@ -223,7 +223,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testForBetterMutationJournalAlignmentSize() throws ConfigurationException {     
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setAllowEphemeralPorts(true);
         conf.setBookiePort(0); 
         conf.setJournalAlignmentSize(16 * 1024 * 1024);
@@ -237,7 +237,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testForBetterMutationIsEntryLogPerLedgerEnabled() throws ConfigurationException {     
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setAllowEphemeralPorts(true);
         conf.setBookiePort(0); 
 
@@ -252,7 +252,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testForBetterMutationIsEntryLogPerLedgerEnabled2() throws ConfigurationException {     
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setAllowEphemeralPorts(true);
         conf.setBookiePort(0); 
 
@@ -267,7 +267,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testForBetterCoverageArenaChunkMinor() throws ConfigurationException {     
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setAllowEphemeralPorts(true);
         conf.setBookiePort(0); 
         conf.setSkipListArenaChunkSize(120);
@@ -291,7 +291,7 @@ public class ServerConfigurationTest {
     
     @Test
     public void testForBetterCoverageJournalAlignmentSize() throws ConfigurationException {     
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setAllowEphemeralPorts(true);
         conf.setBookiePort(0); 
         conf.setJournalAlignmentSize(value);
@@ -309,7 +309,7 @@ public class ServerConfigurationTest {
 
     @Test
     public void testForBetterCoverageEntryLogPerLedgerEnabled() {     
-        ServerConfigurationB conf = new ServerConfigurationB();
+        ServerConfiguration conf = new ServerConfiguration();
         conf.setAllowEphemeralPorts(true);
         conf.setBookiePort(0); 
 
