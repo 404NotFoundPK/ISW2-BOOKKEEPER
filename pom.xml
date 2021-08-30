@@ -90,6 +90,7 @@
 	  <!--Jacoco-->
     <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
     <aggregate.report.dir>bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+    <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
     <arquillian-junit.version>1.6.0.Final</arquillian-junit.version>
