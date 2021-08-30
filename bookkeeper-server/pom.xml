@@ -27,6 +27,7 @@
 
   <properties>
     <pitest.version>1.6.7</pitest.version>
+    <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
   </properties>
 
   <dependencies>
@@ -312,11 +313,11 @@
             <configuration>
               <targetClasses>
                 <param>org.apache.bookkeeper.conf.ServerConfiguration</param>
-                <param>org.apache.bookkeeper.proto.BookieClientImpl</param>
+                <param>org.apache.bookkeeper.proto.FutureUtils</param>
               </targetClasses>
               <targetTests>
                 <param>org.apache.bookkeeper.isw2tests.ServerConfigurationTest</param>
-                <param>org.apache.bookkeeper.isw2tests.BookieClientImplTest</param>
+                <param>org.apache.bookkeeper.isw2tests.FutureUtilsTest</param>
               </targetTests>
             </configuration>
           </plugin>
