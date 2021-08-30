@@ -80,10 +80,10 @@
     <testRetryCount>2</testRetryCount>
 	<sonar.organization>404notfoundpk</sonar.organization>
 	<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-	<!--<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths> -->
+	<!--<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bookkeeper-coverage/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths> -->
 	  <!--Jacoco-->
     <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
-    <aggregate.report.dir>bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+    <aggregate.report.dir>bookkeeper-coverage/jacoco-report/jacoco.xml</aggregate.report.dir>
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
     <arquillian-junit.version>1.6.0.Final</arquillian-junit.version>
@@ -1037,7 +1037,7 @@
 
 			    <sourceDirectory>src/main/java</sourceDirectory>
 			    <!-- see above -->
-			    <outputDirectory>coverage/jacoco-report</outputDirectory>
+			    <outputDirectory>bookkeeper-coverage/jacoco-report</outputDirectory>
 
 			</configuration>
             		</execution>
