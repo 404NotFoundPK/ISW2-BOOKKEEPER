@@ -23,7 +23,7 @@
     <dependencies>
     <dependency>
       <groupId>org.apache.bookkeeper</groupId>
-      <artifactId>bookkeeper</artifactId>
+      <artifactId>bookkeeper-server</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
   </dependencies>
