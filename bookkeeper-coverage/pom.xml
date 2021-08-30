@@ -9,7 +9,7 @@
     </properties>
 
     <parent>
-      <artifactId>bookkeeper</artifactId>
+      <artifactId>parent</artifactId>
       <groupId>org.apache.bookkeeper</groupId>
       <version>4.14.0</version>
     </parent>
