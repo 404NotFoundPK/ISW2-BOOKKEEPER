@@ -80,7 +80,7 @@
     <testRetryCount>2</testRetryCount>
 	<sonar.organization>404notfoundpk</sonar.organization>
 	<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-	<!--<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bookkeeper-coverage/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths> -->
+	<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../bookkeeper-coverage/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	  <!--Jacoco-->
     <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
     <aggregate.report.dir>bookkeeper-coverage/jacoco-report/jacoco.xml</aggregate.report.dir>
