@@ -3,6 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+	<artifactId>bookkeeper-coverage</artifactId>
+<properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
     <parent>
       <artifactId>bookkeeper</artifactId>
       <groupId>org.apache.bookkeeper</groupId>
@@ -18,8 +24,8 @@
     <dependencies>
     <dependency>
       <groupId>org.apache.bookkeeper</groupId>
-      <artifactId>bookkeeper-server</artifactId>
-      <version>4.14.0</version>
+      <artifactId>bookkeeper</artifactId>
+      <version>${project.parent.version}</version>
     </dependency>
   </dependencies>
 
