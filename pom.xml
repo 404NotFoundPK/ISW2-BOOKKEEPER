@@ -90,7 +90,7 @@
 	  <!--Jacoco-->
     <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
     <aggregate.report.dir>bookkeeper-coverage/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
-    <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../coverage/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../coverage/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     <!-- dependencies -->
     <arquillian-cube.version>1.18.2</arquillian-cube.version>
     <arquillian-junit.version>1.6.0.Final</arquillian-junit.version>
@@ -1025,18 +1025,30 @@
           </plugin>
 
            <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>${jacoco-maven-plugin.version}</version>
-            <executions>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco-maven-plugin.version}</version>
+        <executions>
               <execution>
-                <id>prepare-agent</id>
                 <goals>
                   <goal>prepare-agent</goal>
                 </goals>
               </execution>
+              <execution>
+                <id>report</id>
+                <phase>test</phase>
+                <goals>
+                    <goal>report</goal>
+                </goals>
+                <configuration>
+
+                    <sourceDirectory>src/main/java</sourceDirectory>
+                    <!-- see above -->
+                    <outputDirectory>coverage/jacoco-report</outputDirectory>
+                </configuration>
+            </execution>
             </executions>
-          </plugin>
+      </plugin>
         </plugins>
       </build>
     </profile>
